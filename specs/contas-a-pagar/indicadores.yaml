@@ -1,0 +1,37 @@
+# Camada semântica (mini) do agente de Contas a Pagar.
+#
+# Cada indicador tem uma definição fixa. O agente (LLM) nunca calcula estes
+# valores de cabeça: ele sempre chama uma ferramenta que aplica exatamente
+# a formula descrita aqui sobre os dados reais.
+
+indicadores:
+  total_em_aberto:
+    label: Total em aberto
+    formula: soma(valor_original - valor_pago) para titulos com status em [aberto, parcial]
+    dimensoes: [empresa, categoria, fornecedor]
+
+  total_vencido:
+    label: Total vencido
+    formula: total_em_aberto onde vencimento < data_referencia
+    dimensoes: [empresa, categoria, fornecedor]
+
+  total_a_vencer_hoje:
+    label: Total a vencer hoje
+    formula: total_em_aberto onde vencimento == data_referencia
+    dimensoes: [empresa]
+
+  total_a_vencer_7_dias:
+    label: Total a vencer nos proximos 7 dias
+    formula: total_em_aberto onde data_referencia < vencimento <= data_referencia + 7 dias
+    dimensoes: [empresa]
+
+  total_pago_mes_atual:
+    label: Total pago no mes de referencia
+    formula: soma(valor_pago) onde mes(data_pagamento) == mes(data_referencia)
+    dimensoes: [empresa, categoria]
+
+regras:
+  - "Titulos com status 'cancelado' sao excluidos de todos os indicadores."
+  - "Valores monetarios usam Decimal, nunca float, para evitar erro de arredondamento."
+  - "A data de referencia (hoje) e explicita em toda resposta - nunca implicita."
+  - "Projecao de saldo usa apenas obrigacoes ja registradas na base (aberto/parcial); nao inclui entradas previstas nem despesas ainda nao lancadas."

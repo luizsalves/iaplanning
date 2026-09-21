@@ -1,0 +1,5 @@
+.env
+__pycache__/
+*.pyc
+docs_enviados/*
+!docs_enviados/.gitkeep

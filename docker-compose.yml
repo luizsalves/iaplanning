@@ -1,0 +1,11 @@
+services:
+  agente-contas-a-pagar:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./specs:/app/specs
+      - ./docs_enviados:/app/docs_enviados
+    stdin_open: true
+    tty: true
