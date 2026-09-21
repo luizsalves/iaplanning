@@ -1,0 +1,19 @@
+id,fornecedor,categoria,empresa,moeda,vencimento,valor_original,data_pagamento,valor_pago,status,juros,multa,desconto
+AP-001,Fornecedor Alpha Ltda,Fornecedores,Empresa A,BRL,2026-07-10,12500.00,2026-07-09,12500.00,pago,0,0,0
+AP-002,Fornecedor Alpha Ltda,Fornecedores,Empresa A,BRL,2026-08-10,8300.00,2026-08-18,8342.50,pago,42.50,0,0
+AP-003,Distribuidora Beta S.A.,Fornecedores,Empresa A,BRL,2026-09-05,15200.00,,,aberto,0,0,0
+AP-004,Distribuidora Beta S.A.,Fornecedores,Empresa B,BRL,2026-09-18,6400.00,,,aberto,0,0,0
+AP-005,Imobiliária Central,Aluguel,Empresa A,BRL,2026-09-21,9800.00,,,aberto,0,0,0
+AP-006,Imobiliária Central,Aluguel,Empresa B,BRL,2026-09-21,7200.00,,,aberto,0,0,0
+AP-007,Receita Federal,Impostos,Empresa A,BRL,2026-09-25,22300.00,,,aberto,0,0,0
+AP-008,Prefeitura Municipal,Impostos,Empresa B,BRL,2026-09-28,5400.00,,,aberto,0,0,0
+AP-009,Agência DigitalAds,Marketing,Empresa A,BRL,2026-09-30,4100.00,,,aberto,0,0,0
+AP-010,CloudTech Serviços,TI,Empresa A,BRL,2026-09-15,3200.00,2026-09-14,3200.00,pago,0,0,0
+AP-011,CloudTech Serviços,TI,Empresa B,BRL,2026-09-10,2900.00,,1450.00,parcial,0,0,0
+AP-012,Energia Distribuidora SA,Utilities,Empresa A,BRL,2026-09-12,3800.00,,,aberto,0,0,0
+AP-013,Água e Saneamento,Utilities,Empresa B,BRL,2026-09-08,1200.00,2026-09-19,1236.00,pago,36.00,0,0
+AP-014,Fornecedor Alpha Ltda,Fornecedores,Empresa B,BRL,2026-10-05,9900.00,,,aberto,0,0,0
+AP-015,Distribuidora Beta S.A.,Fornecedores,Empresa A,BRL,2026-08-30,5000.00,,,cancelado,0,0,0
+AP-016,Consultoria Jurídica XYZ,Serviços,Empresa A,BRL,2026-09-01,6700.00,,,aberto,0,0,0
+AP-017,Transportadora Rápida,Fornecedores,Empresa B,BRL,2026-09-22,3300.00,,,aberto,0,0,0
+AP-018,Papelaria Office,Marketing,Empresa A,BRL,2026-08-25,890.00,2026-08-25,890.00,pago,0,0,0
