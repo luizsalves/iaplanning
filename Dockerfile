@@ -9,4 +9,6 @@ COPY src/ src/
 COPY specs/ specs/
 COPY data/ data/
 
-ENTRYPOINT ["python", "-m", "src.cli"]
+# Entrypoint padrao (contas a pagar); o docker-compose.yml sobrescreve
+# `entrypoint` no servico agente-contabil para apontar para o outro CLI.
+ENTRYPOINT ["python", "-m", "src.contas_a_pagar.cli"]

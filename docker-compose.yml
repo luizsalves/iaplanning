@@ -9,3 +9,15 @@ services:
       - ./docs_enviados:/app/docs_enviados
     stdin_open: true
     tty: true
+
+  agente-contabil:
+    build: .
+    entrypoint: ["python", "-m", "src.contabilidade.cli"]
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+      - ./specs:/app/specs
+      - ./docs_enviados:/app/docs_enviados
+    stdin_open: true
+    tty: true

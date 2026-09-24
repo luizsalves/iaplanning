@@ -9,8 +9,8 @@ from decimal import Decimal
 
 import pytest
 
-from src.datasource import carregar_titulos
-from src import engine
+from src.contas_a_pagar.datasource import carregar_titulos
+from src.contas_a_pagar import engine
 
 DATA_REF = date(2026, 9, 21)
 
@@ -92,7 +92,7 @@ def test_projetar_saldo_separa_vencidas_de_futuras(titulos):
 
 
 def test_get_indicador_erro_para_nome_desconhecido():
-    from src.tools import get_indicador, INDICADORES_DISPONIVEIS
+    from src.contas_a_pagar.tools import get_indicador, INDICADORES_DISPONIVEIS
 
     resultado = get_indicador(nome="nao_existe")
     assert "erro" in resultado

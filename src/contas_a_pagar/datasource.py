@@ -14,7 +14,7 @@ from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal, InvalidOperation
 
-CAMINHO_PADRAO = os.path.join(os.path.dirname(__file__), "..", "data", "contas_a_pagar.csv")
+CAMINHO_PADRAO = os.path.join(os.path.dirname(__file__), "..", "..", "data", "contas_a_pagar.csv")
 
 STATUS_VALIDOS = {"aberto", "parcial", "pago", "cancelado"}
 

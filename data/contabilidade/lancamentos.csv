@@ -1,0 +1,21 @@
+lancamento_id,data,historico,conta,tipo,valor
+LC-0001,2026-09-01,Aporte de capital dos socios,1.1.02,D,100000.00
+LC-0001,2026-09-01,Aporte de capital dos socios,3.1.01,C,100000.00
+LC-0002,2026-09-03,Compra de mercadorias a prazo,1.2.01,D,25000.00
+LC-0002,2026-09-03,Compra de mercadorias a prazo,2.1.01,C,25000.00
+LC-0003,2026-09-05,Venda de mercadorias a vista,1.1.01,D,18000.00
+LC-0003,2026-09-05,Venda de mercadorias a vista,4.1.01,C,18000.00
+LC-0004,2026-09-05,Baixa do custo da mercadoria vendida (venda LC-0003),5.1.01,D,10000.00
+LC-0004,2026-09-05,Baixa do custo da mercadoria vendida (venda LC-0003),1.2.01,C,10000.00
+LC-0005,2026-09-08,Pagamento a fornecedor via banco,2.1.01,D,12000.00
+LC-0005,2026-09-08,Pagamento a fornecedor via banco,1.1.02,C,12000.00
+LC-0006,2026-09-10,Prestacao de servicos a prazo,1.1.03,D,9000.00
+LC-0006,2026-09-10,Prestacao de servicos a prazo,4.1.02,C,9000.00
+LC-0007,2026-09-12,Pagamento de salarios via banco,5.2.01,D,15000.00
+LC-0007,2026-09-12,Pagamento de salarios via banco,1.1.02,C,15000.00
+LC-0008,2026-09-15,Pagamento de aluguel via banco,5.2.02,D,4500.00
+LC-0008,2026-09-15,Pagamento de aluguel via banco,1.1.02,C,4500.00
+LC-0009,2026-09-18,Recebimento parcial de cliente (ref. LC-0006) via banco,1.1.02,D,5000.00
+LC-0009,2026-09-18,Recebimento parcial de cliente (ref. LC-0006) via banco,1.1.03,C,5000.00
+LC-0010,2026-09-20,Provisao de despesas financeiras e impostos sobre vendas,5.2.04,D,1800.00
+LC-0010,2026-09-20,Provisao de despesas financeiras e impostos sobre vendas,2.1.03,C,1800.00

@@ -1,0 +1,18 @@
+codigo,nome,tipo,natureza
+1.1.01,Caixa,Ativo,Devedora
+1.1.02,Bancos Conta Movimento,Ativo,Devedora
+1.1.03,Clientes a Receber,Ativo,Devedora
+1.2.01,Estoque,Ativo,Devedora
+2.1.01,Fornecedores a Pagar,Passivo,Credora
+2.1.02,Salarios a Pagar,Passivo,Credora
+2.1.03,Impostos a Recolher,Passivo,Credora
+2.2.01,Emprestimos a Longo Prazo,Passivo,Credora
+3.1.01,Capital Social,Patrimonio Liquido,Credora
+3.2.01,Lucros Acumulados,Patrimonio Liquido,Credora
+4.1.01,Receita de Vendas,Receita,Credora
+4.1.02,Receita de Servicos,Receita,Credora
+5.1.01,Custo das Mercadorias Vendidas,Despesa,Devedora
+5.2.01,Despesas com Salarios,Despesa,Devedora
+5.2.02,Despesas com Aluguel,Despesa,Devedora
+5.2.03,Despesas Administrativas,Despesa,Devedora
+5.2.04,Despesas Financeiras,Despesa,Devedora
