@@ -1,8 +1,9 @@
 """Camada de acesso a dados do agente de conciliacao contabil.
 
-Le o plano de contas e os lancamentos de CSVs fixture. `registrar_lancamento`
-e a unica escrita permitida: acrescenta linhas ao final do CSV de
-lancamentos, uma por partida, e nunca reescreve o que ja existe.
+Le o plano de contas e os lancamentos de CSVs fixture. Este modulo e
+SOMENTE LEITURA - o agente nao tem nenhuma ferramenta que grave, altere ou
+apague um lancamento. Ele consulta, valida (sem persistir) e gera
+relatorios/razao/balancete a partir do que ja esta na base.
 """
 
 from __future__ import annotations
@@ -82,47 +83,3 @@ def carregar_lancamentos(caminho: str | None = None) -> list[Partida]:
                 )
             )
     return partidas
-
-
-def _proximo_lancamento_id(partidas: list[Partida]) -> str:
-    maior = 0
-    for p in partidas:
-        try:
-            numero = int(p.lancamento_id.split("-")[-1])
-        except ValueError:
-            continue
-        maior = max(maior, numero)
-    return f"LC-{maior + 1:04d}"
-
-
-def registrar_lancamento(
-    data_lancamento: date,
-    historico: str,
-    linhas: list[dict],
-    *,
-    caminho: str | None = None,
-) -> str:
-    """Acrescenta um lancamento (ja validado pelo chamador) ao CSV.
-
-    `linhas` e uma lista de dicts com chaves conta/tipo/valor - a mesma
-    forma normalizada usada por engine.validar_partidas. Esta funcao nao
-    valida partida dobrada de novo; quem chama (tools.py) ja deve ter
-    validado antes de persistir.
-    """
-    caminho = caminho or os.environ.get("CONTABILIDADE_LANCAMENTOS_CSV", CAMINHO_LANCAMENTOS)
-    lancamento_id = _proximo_lancamento_id(carregar_lancamentos(caminho))
-
-    with open(caminho, "a", encoding="utf-8", newline="") as arquivo:
-        escritor = csv.writer(arquivo)
-        for linha in linhas:
-            escritor.writerow(
-                [
-                    lancamento_id,
-                    data_lancamento.isoformat(),
-                    historico,
-                    linha["conta"],
-                    linha["tipo"],
-                    str(linha["valor"]),
-                ]
-            )
-    return lancamento_id

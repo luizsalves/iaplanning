@@ -1,5 +1,6 @@
-"""Ferramentas expostas ao agente contabil. Toda leitura e escrita de dados
-reais passa por aqui - o LLM nunca calcula saldo, razao ou balancete sozinho."""
+"""Ferramentas expostas ao agente contabil. SOMENTE LEITURA: nenhuma delas
+grava, altera ou apaga nada na base. O LLM tambem nunca calcula saldo,
+razao ou balancete sozinho - todo numero vem de uma chamada aqui."""
 
 from __future__ import annotations
 
@@ -8,7 +9,7 @@ from datetime import date
 from anthropic import beta_tool
 
 from . import engine
-from .datasource import carregar_lancamentos, carregar_plano_de_contas, registrar_lancamento
+from .datasource import carregar_lancamentos, carregar_plano_de_contas
 
 
 @beta_tool
@@ -35,14 +36,15 @@ def consultar_plano_de_contas(tipo: str = "", busca: str = "") -> dict:
 
 
 @beta_tool
-def lancar_partida(data: str, historico: str, partidas: list[dict]) -> dict:
-    """Registra um lancamento contabil em partidas dobradas.
+def validar_lancamento(data: str, historico: str, partidas: list[dict]) -> dict:
+    """Confere se um lancamento proposto fecharia em partidas dobradas.
 
-    So registra se a soma dos debitos for igual a soma dos creditos e todas
-    as contas existirem no plano de contas - caso contrario, nada e gravado
-    e o motivo da rejeicao e retornado. Confirme os codigos de conta com
-    `consultar_plano_de_contas` antes de chamar esta ferramenta se nao
-    tiver certeza deles.
+    NAO GRAVA NADA - e uma conferencia. Verifica se a soma dos debitos e
+    igual a soma dos creditos e se todas as contas existem no plano de
+    contas, e devolve o resultado (batendo ou nao, e por que). Use isso
+    quando o usuario descrever um lancamento e quiser saber se ele fecha,
+    ou pedir ajuda para montar as partidas de um fato contabil - o
+    registro em si e feito fora deste agente, pelo sistema contabil real.
 
     Args:
         data: Data do lancamento, formato AAAA-MM-DD.
@@ -51,27 +53,23 @@ def lancar_partida(data: str, historico: str, partidas: list[dict]) -> dict:
             conta (codigo exato do plano de contas, ex: "1.1.02"),
             tipo ("D" para debito ou "C" para credito),
             valor (numero positivo, sem simbolo de moeda).
-            Precisa ter pelo menos duas partidas e a soma dos debitos tem
-            que ser igual a soma dos creditos.
+            Precisa ter pelo menos duas partidas.
     """
     plano = carregar_plano_de_contas()
 
     try:
-        data_lancamento = date.fromisoformat(data)
+        date.fromisoformat(data)
     except ValueError:
-        return {"aceito": False, "motivo": f"Data invalida: {data!r}, use AAAA-MM-DD."}
+        return {"fecha": False, "motivo": f"Data invalida: {data!r}, use AAAA-MM-DD."}
 
     valido, motivo = engine.validar_partidas(plano, partidas)
-    if not valido:
-        return {"aceito": False, "motivo": motivo}
-
-    lancamento_id = registrar_lancamento(data_lancamento, historico, partidas)
     return {
-        "aceito": True,
-        "lancamento_id": lancamento_id,
-        "data": data_lancamento.isoformat(),
+        "fecha": valido,
+        "motivo": motivo,
+        "data": data,
         "historico": historico,
         "partidas": partidas,
+        "observacao": "Apenas conferencia - nada foi gravado. O registro real e feito fora deste agente.",
     }
 
 
@@ -125,7 +123,7 @@ def gerar_balancete(data_inicio: str = "", data_fim: str = "", tipo: str = "") -
 
 TOOLS = [
     consultar_plano_de_contas,
-    lancar_partida,
+    validar_lancamento,
     consultar_razao,
     gerar_balancete,
 ]

@@ -28,19 +28,23 @@ docker compose run --rm agente-contas-a-pagar "Qual o total em aberto?"
 
 ## Agente de Conciliação Contábil
 
-- Especialista em **razão, balancete, plano de contas e lançamento de
+**Somente leitura** — nenhuma ferramenta grava, altera ou apaga nada.
+Registrar um lançamento de verdade é feito fora deste agente, pelo
+sistema contábil real.
+
+- Especialista em **razão, balancete, plano de contas e conferência de
   partidas dobradas**.
-- Lança partidas contábeis a partir de um pedido em linguagem natural —
-  só grava se débito == crédito e as contas existirem no plano de contas;
-  senão, rejeita e explica o motivo (nunca "força" o fechamento).
+- Confere se um lançamento descrito em linguagem natural fecharia (débito
+  == crédito, contas existentes) via `validar_lancamento` — isso é só uma
+  conferência, não um registro; nada é gravado.
 - Consulta o **razão** de qualquer conta (extrato cronológico com saldo
   acumulado) e gera o **balancete** (saldo de cada conta, com verificação
   se o total geral fecha).
 - Fonte de dados hoje: `data/contabilidade/plano_de_contas.csv` e
-  `data/contabilidade/lancamentos.csv` (10 lançamentos fake). Lançamentos
-  novos são só acrescentados (append-only) — nada é reescrito ou apagado.
-- Fechamento/reconciliação contra uma fonte externa (extrato bancário,
-  subledger) fica para a v2 — ver `specs/conciliacao-contabil/SPEC.md`.
+  `data/contabilidade/lancamentos.csv` (10 lançamentos fake, fixos).
+- Relatórios/gráficos e fechamento/reconciliação contra uma fonte externa
+  (extrato bancário, subledger) ficam para a v2 — ver
+  `specs/conciliacao-contabil/SPEC.md`.
 
 ```bash
 docker compose run --rm agente-contabil
